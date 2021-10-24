@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import { Ball } from "./Ball";
+import { Paddle } from "./Paddle";
 import { Position, Wall } from "./Wall";
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
@@ -21,6 +22,7 @@ const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
 export class GameScene extends Phaser.Scene {
   private walls: Wall[];
   private ball: Ball;
+  private paddle: Paddle;
   private world: Phaser.Physics.Matter.World;
 
   constructor() {
@@ -28,9 +30,8 @@ export class GameScene extends Phaser.Scene {
   }
 
   public preload() {
-    console.log(window.location.pathname);
-
     this.load.image("ball", "/assets/ball.png");
+    this.load.image("paddle", "/assets/paddle.png");
   }
 
   public create() {
@@ -47,15 +48,21 @@ export class GameScene extends Phaser.Scene {
       20,
       410,
       560,
-      1,
+      100,
       true,
       true,
       true,
       true
     );
+    this.world.disableGravity();
+    this.world.update60Hz();
 
-    const ball = new Ball(this);
+    this.ball = new Ball(this);
+    this.paddle = new Paddle(this);
+  }
 
-    console.log(ball.texture.get());
+  public update() {
+    console.log(this.world.getAllBodies());
+    // this.paddle.update();
   }
 }

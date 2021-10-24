@@ -13,8 +13,10 @@ export class Ball extends Phaser.Physics.Matter.Image {
     );
 
     this.setCircle(radius);
-    this.setFriction(0.005);
+    this.setFriction(0, 0);
     this.setBounce(1);
+    this.setVelocity(20, 20);
+
     scene.add.existing(this);
   }
 }
