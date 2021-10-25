@@ -4,12 +4,8 @@ const width = 20;
 
 export type Position = "Left" | "Right" | "Top" | "Bottom";
 
-export class Wall extends Phaser.GameObjects.Rectangle {
-  constructor(
-    scene: Phaser.Scene,
-    position: Position,
-    color: number = 0x000000
-  ) {
+export class WallObject extends Phaser.GameObjects.Rectangle {
+  constructor(scene: Phaser.Scene, position: Position) {
     if (position === "Left" || position === "Right") {
       super(
         scene,
@@ -17,7 +13,7 @@ export class Wall extends Phaser.GameObjects.Rectangle {
         scene.scale.height / 2,
         width,
         scene.scale.height,
-        color
+        0x000000
       );
     } else {
       super(
@@ -26,11 +22,8 @@ export class Wall extends Phaser.GameObjects.Rectangle {
         position === "Top" ? width / 2 : scene.scale.height - width / 2,
         scene.scale.width,
         width,
-        color
+        0x000000
       );
     }
-
-    scene.add.existing(this);
-    scene.physics.add.existing(this, true);
   }
 }

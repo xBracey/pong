@@ -12,7 +12,18 @@ export class Ball extends Phaser.Physics.Arcade.Image {
     this.setCircle(radius);
     this.setFriction(1);
     this.setBounce(1);
-    this.setVelocity(400, 400);
     this.setCollideWorldBounds(true);
+    this.setRandomVelocity();
+  }
+
+  setRandomVelocity() {
+    const firstV = Math.floor(Math.random() * 400) + 200;
+    this.setVelocity(-firstV, -800 + firstV);
+  }
+
+  reset() {
+    this.x = 225;
+    this.y = 300;
+    this.setRandomVelocity();
   }
 }
