@@ -2,21 +2,17 @@ import Phaser from "phaser";
 
 const radius = 12;
 
-export class Ball extends Phaser.Physics.Matter.Image {
+export class Ball extends Phaser.Physics.Arcade.Image {
   constructor(scene: Phaser.Scene) {
-    const world = scene.matter.world;
-    super(
-      world,
-      world.scene.scale.width / 2,
-      world.scene.scale.height / 2,
-      "ball"
-    );
-
-    this.setCircle(radius);
-    this.setFriction(0, 0);
-    this.setBounce(1);
-    this.setVelocity(20, 20);
+    super(scene, scene.scale.width / 2, scene.scale.height / 2, "ball");
 
     scene.add.existing(this);
+    scene.physics.add.existing(this);
+
+    this.setCircle(radius);
+    this.setFriction(1);
+    this.setBounce(1);
+    this.setVelocity(400, 400);
+    this.setCollideWorldBounds(true);
   }
 }

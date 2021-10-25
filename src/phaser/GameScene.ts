@@ -8,13 +8,10 @@ const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   visible: false,
   key: "Game",
   physics: {
-    default: "matter",
-    matter: {
-      enableSleeping: true,
-      debug: {
-        showBody: true,
-        showStaticBody: true,
-      },
+    default: "arcade",
+    arcade: {
+      gravity: { x: 0, y: 0 },
+      debug: true,
     },
   },
 };
@@ -23,7 +20,8 @@ export class GameScene extends Phaser.Scene {
   private walls: Wall[];
   private ball: Ball;
   private paddle: Paddle;
-  private world: Phaser.Physics.Matter.World;
+  private world: Phaser.Physics.Arcade.World;
+  private counter: number;
 
   constructor() {
     super(sceneConfig);
@@ -43,26 +41,23 @@ export class GameScene extends Phaser.Scene {
       return this.add.existing(wall);
     });
 
-    this.world = this.matter.world.setBounds(
+    this.world = this.physics.world.setBounds(
       20,
       20,
       410,
       560,
-      100,
       true,
       true,
       true,
       true
     );
-    this.world.disableGravity();
-    this.world.update60Hz();
 
     this.ball = new Ball(this);
     this.paddle = new Paddle(this);
   }
 
   public update() {
-    console.log(this.world.getAllBodies());
-    // this.paddle.update();
+    this.paddle.update();
+    this.physics.collide(this.ball, this.paddle);
   }
 }
