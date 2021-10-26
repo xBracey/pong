@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 
 const radius = 12;
+const speedDelta = 200;
 
 export class Ball extends Phaser.Physics.Arcade.Image {
   constructor(scene: Phaser.Scene) {
@@ -17,8 +18,8 @@ export class Ball extends Phaser.Physics.Arcade.Image {
   }
 
   setRandomVelocity() {
-    const firstV = Math.floor(Math.random() * 400) + 200;
-    this.setVelocity(-firstV, -800 + firstV);
+    const firstV = Math.floor(Math.random() * speedDelta) + speedDelta / 2;
+    this.setVelocity(-firstV, -(speedDelta * 2) + firstV);
   }
 
   reset() {
